@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/tabs/doing">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button [disabled]="editToDoForm.invalid" (click)="saveToDo()">
+        <ion-icon name="checkmark" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{titleBarText}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="editToDoForm">
+    <ion-item>
+      <ion-label position="floating">Title</ion-label>
+      <ion-input type="text" size="25" class="toDoTitle" formControlName="title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-textarea placeholder="Description" rows="6" formControlName="description"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>Priority</ion-label>
+      <ion-range min="0" max="10" step="1" formControlName="priority"></ion-range>
+    </ion-item>
+  </form>
+</ion-content>

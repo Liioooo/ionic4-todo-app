@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar [color]="'light'">
+    <ion-title>
+      Lio To-Do
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <app-to-do-entry *ngFor="let toDo of toDos.getAllToDos()"
+                     [toDo]="toDo"
+                     (deleteItem)="toDos.delete($event)">
+    </app-to-do-entry>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/edit-to-do', 'new']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>
