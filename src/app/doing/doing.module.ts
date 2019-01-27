@@ -6,8 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { DoingPage } from './doing.page';
-import {ToDoEntryComponent} from './to-do-entry/to-do-entry.component';
 import {SharedModule} from '../shared/shared.module';
+import {ToDoEntryComponent} from './to-do-entry/to-do-entry.component';
 
 const routes: Routes = [
   {

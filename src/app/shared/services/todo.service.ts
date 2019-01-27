@@ -7,49 +7,77 @@ import {ToDo} from '../models/to-do';
 })
 export class TodoService {
 
-    private allToDos: ToDo[];
+    private doingToDos: ToDo[];
+    private archiveToDos: ToDo[];
+    private doneToDos: ToDo[];
 
     constructor(private storage: Storage) {
-        this.storage.get('toDos').then(data => {
-            this.allToDos = data || [];
+        this.storage.get('toDosDoing').then(data => {
+            this.doingToDos = data || [];
+        });
+        this.storage.get('toDosDone').then(data => {
+            this.doneToDos = data || [];
+        });
+        this.storage.get('toDosArchive').then(data => {
+            this.archiveToDos = data || [];
         });
     }
 
-    public getAllToDos(): ToDo[] {
-      return this.allToDos;
+    public getAllDoing(): ToDo[] {
+      return this.doingToDos;
     }
 
-    public getToDo(id: number) {
-        return this.allToDos.filter(item => Number(item.id) === Number(id))[0];
+    public getDoingToDo(id: number) {
+        return this.doingToDos.filter(item => Number(item.id) === Number(id))[0];
     }
 
     public addToDo(toDo: ToDo) {
         let highest = 0;
-        this.allToDos.forEach(item => {
+        const [allToDos] = [this.doingToDos, this.doneToDos, this.archiveToDos];
+        allToDos.forEach(item => {
             if (item.id > highest) {
                 highest = item.id;
             }
         });
         toDo.id = highest + 1;
-        this.allToDos.push(toDo);
+        this.doingToDos.push(toDo);
         this.saveToStorage();
     }
 
     public updateToDo(toDo: ToDo) {
-        for (let i = 0; i < this.allToDos.length; i++) {
-            if (this.allToDos[i].id === toDo.id) {
-                this.allToDos[i] = toDo;
+        for (let i = 0; i < this.doingToDos.length; i++) {
+            if (this.doingToDos[i].id === toDo.id) {
+                this.doingToDos[i] = toDo;
             }
         }
         this.saveToStorage();
     }
 
-    public delete(id: number) {
-        this.allToDos = this.allToDos.filter(item => Number(item.id) !== id);
+    public moveToArchive(id: number) {
+        for (let i = 0; i < this.doingToDos.length; i++) {
+            if (this.doingToDos[i].id === id) {
+                this.archiveToDos.push(this.doingToDos[i]);
+                this.doingToDos.splice(i, 1);
+                break;
+            }
+        }
+        this.saveToStorage();
+    }
+
+    public moveToDone(id: number) {
+        for (let i = 0; i < this.doingToDos.length; i++) {
+            if (this.doingToDos[i].id === id) {
+                this.doneToDos.push(this.doingToDos[i]);
+                this.doingToDos.splice(i, 1);
+                break;
+            }
+        }
         this.saveToStorage();
     }
 
     private saveToStorage() {
-        this.storage.set('toDos', this.allToDos);
+        this.storage.set('toDosDoing', this.doingToDos);
+        this.storage.set('toDosDone', this.doneToDos);
+        this.storage.set('toDosArchive', this.archiveToDos);
     }
 }

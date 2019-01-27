@@ -1,10 +1,10 @@
 {
   "name": "lio-to-do-app",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Liiioooo",
   "scripts": {
     "ng": "ng",
+    "startEm": "ionic cordova emulate android -l",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",

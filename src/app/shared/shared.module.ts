@@ -5,7 +5,7 @@ import {TodoService} from './services/todo.service';
 @NgModule({
   declarations: [],
   imports: [
-      CommonModule
+      CommonModule,
   ]
 })
 export class SharedModule {

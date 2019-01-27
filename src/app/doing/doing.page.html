@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar [color]="'light'">
+  <ion-toolbar>
     <ion-title>
       Lio To-Do
     </ion-title>
@@ -8,9 +8,9 @@
 
 <ion-content padding>
   <ion-list>
-    <app-to-do-entry *ngFor="let toDo of toDos.getAllToDos()"
+    <app-to-do-entry *ngFor="let toDo of toDos.getAllDoing()"
                      [toDo]="toDo"
-                     (deleteItem)="toDos.delete($event)">
+                     (deleteItem)="toDos.moveToArchive($event)">
     </app-to-do-entry>
   </ion-list>
 

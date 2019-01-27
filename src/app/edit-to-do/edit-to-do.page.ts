@@ -35,7 +35,7 @@ export class EditToDoPage implements OnInit {
                 this.editToDoForm.controls.title.setValue('');
                 this.editToDoForm.controls.description.setValue('');
             } else {
-                const toDo = this.toDoService.getToDo(params['id']);
+                const toDo = this.toDoService.getDoingToDo(params['id']);
                 this.editToDoForm.controls.priority.setValue(toDo.priority);
                 this.editToDoForm.controls.title.setValue(toDo.title);
                 this.editToDoForm.controls.description.setValue(toDo.description);
