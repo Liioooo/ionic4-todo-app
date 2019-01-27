@@ -5,4 +5,8 @@ export interface ToDo {
     priority: number;
     done?: boolean;
     archive?: boolean;
+    deadline: {
+        date: string;
+        time: string;
+    };
 }

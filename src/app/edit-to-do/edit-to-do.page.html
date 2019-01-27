@@ -27,5 +27,21 @@
       <ion-label>Priority</ion-label>
       <ion-range min="0" max="10" step="1" formControlName="priority"></ion-range>
     </ion-item>
+    <ion-item-group>
+      <ion-row  justify-content-between>
+        <h5>Deadline</h5>
+        <ion-toggle formControlName="showingDeadlineMenu"></ion-toggle>
+      </ion-row>
+      <div [style.display]="showingDeadlineMenu ? 'block' : 'none'">
+        <ion-item>
+          <ion-label>Date</ion-label>
+          <ion-datetime displayFormat="DD/MM/YYYY" formControlName="date" max="2100"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>Time</ion-label>
+          <ion-datetime displayFormat="HH:mm" formControlName="time"></ion-datetime>
+        </ion-item>
+      </div>
+    </ion-item-group>
   </form>
 </ion-content>

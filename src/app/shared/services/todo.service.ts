@@ -16,7 +16,9 @@ export class TodoService {
     }
 
     public getAllDoing(): ToDo[] {
-      return this.allToDos.filter(todo => !todo.done && !todo.archive);
+      return this.allToDos
+          .filter(todo => !todo.done && !todo.archive)
+          .sort((t1, t2) => t2.priority - t1.priority);
     }
 
     public getAllDone(): ToDo[] {
@@ -46,7 +48,12 @@ export class TodoService {
     }
 
     public updateToDo(toDo: ToDo) {
-        this.allToDos.filter(item => Number(item.id) === toDo.id)[0] = toDo;
+        for (let i = 0; i < this.allToDos.length; i++) {
+            if (this.allToDos[i].id === toDo.id) {
+                this.allToDos[i] = toDo
+                break;
+            }
+        }
         this.saveToStorage();
     }
 
