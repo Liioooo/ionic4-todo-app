@@ -8,10 +8,11 @@
 
 <ion-content padding>
   <ion-list>
-    <app-to-do-entry *ngFor="let toDo of toDos.getAllDoing()"
+    <app-to-do-entry-doing *ngFor="let toDo of toDos.getAllDoing()"
                      [toDo]="toDo"
-                     (deleteItem)="toDos.moveToArchive($event)">
-    </app-to-do-entry>
+                     (archiveItem)="toDos.moveToArchive($event)"
+                     (movedToDone)="toDos.moveToDone($event)">
+    </app-to-do-entry-doing>
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

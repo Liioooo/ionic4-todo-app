@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { DonePage } from './done.page';
+import { ToDoEntryDoneComponent } from './to-do-entry-done/to-do-entry-done.component';
+import {SharedModule} from '../shared/shared.module';
 
 const routes: Routes = [
   {
@@ -16,11 +18,12 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
+      CommonModule,
+      FormsModule,
+      IonicModule,
+      SharedModule,
+      RouterModule.forChild(routes)
   ],
-  declarations: [DonePage]
+  declarations: [DonePage, ToDoEntryDoneComponent]
 })
 export class DonePageModule {}

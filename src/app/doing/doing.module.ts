@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { DoingPage } from './doing.page';
 import {SharedModule} from '../shared/shared.module';
-import {ToDoEntryComponent} from './to-do-entry/to-do-entry.component';
+import {ToDoEntryDoingComponent} from './to-do-entry-doing/to-do-entry-doing.component';
 
 const routes: Routes = [
   {
@@ -24,6 +24,6 @@ const routes: Routes = [
       SharedModule,
       RouterModule.forChild(routes)
   ],
-  declarations: [DoingPage, ToDoEntryComponent]
+  declarations: [DoingPage, ToDoEntryDoingComponent]
 })
 export class DoingPageModule {}

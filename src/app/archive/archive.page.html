@@ -5,5 +5,11 @@
 </ion-header>
 
 <ion-content padding>
-
+  <ion-list>
+    <app-to-do-entry-archive *ngFor="let toDo of toDos.getAllArchive()"
+                             [toDo]="toDo"
+                             (removeFromArchive)="toDos.removeFromArchive($event)"
+                             (deletedItem)="toDos.delete($event)">
+    </app-to-do-entry-archive>
+  </ion-list>
 </ion-content>

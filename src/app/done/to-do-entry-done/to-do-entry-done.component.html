@@ -1,0 +1,9 @@
+<ion-item>
+  <ion-checkbox slot="start" [(ngModel)]="isChecked" (ionChange)="checkedChanged()"></ion-checkbox>
+  <ion-label>{{toDo.title}}</ion-label>
+  <ion-buttons>
+    <ion-button (click)="moveToArchive()">
+      <ion-icon name="archive" size="large"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-item>

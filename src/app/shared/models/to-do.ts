@@ -3,4 +3,6 @@ export interface ToDo {
     title: string;
     description: string;
     priority: number;
+    done?: boolean;
+    archive?: boolean;
 }

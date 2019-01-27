@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ArchivePage } from './archive.page';
+import { ToDoEntryArchiveComponent } from './to-do-entry-archive/to-do-entry-archive.component';
+import {SharedModule} from '../shared/shared.module';
 
 const routes: Routes = [
   {
@@ -16,11 +18,12 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
+      CommonModule,
+      FormsModule,
+      IonicModule,
+      SharedModule,
+      RouterModule.forChild(routes)
   ],
-  declarations: [ArchivePage]
+  declarations: [ArchivePage, ToDoEntryArchiveComponent]
 })
 export class ArchivePageModule {}

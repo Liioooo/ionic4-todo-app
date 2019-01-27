@@ -1,12 +1,12 @@
 <ion-item>
-  <ion-checkbox slot="start"></ion-checkbox>
+  <ion-checkbox slot="start" [(ngModel)]="isChecked" (ionChange)="checkedChanged()"></ion-checkbox>
   <ion-label>{{toDo.title}}</ion-label>
   <ion-buttons>
     <ion-button [routerLink]="['/edit-to-do', toDo.id]">
       <ion-icon name="create" size="large"></ion-icon>
     </ion-button>
-    <ion-button (click)="delete()">
-      <ion-icon name="trash" size="large"></ion-icon>
+    <ion-button (click)="movedToArchive()">
+      <ion-icon name="archive" size="large"></ion-icon>
     </ion-button>
   </ion-buttons>
 </ion-item>

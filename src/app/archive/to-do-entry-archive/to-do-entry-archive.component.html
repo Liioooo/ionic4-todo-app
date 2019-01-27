@@ -1,0 +1,11 @@
+<ion-item>
+  <ion-label>{{toDo.title}}</ion-label>
+  <ion-buttons>
+    <ion-button (click)="removedFromArchive()">
+      <ion-icon name="undo" size="large"></ion-icon>
+    </ion-button>
+    <ion-button (click)="delete()">
+      <ion-icon name="trash" size="large"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-item>
