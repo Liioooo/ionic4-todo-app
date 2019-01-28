@@ -13,7 +13,7 @@ import {ToDo} from '../shared/models/to-do';
 export class EditToDoPage implements OnInit {
 
     private paramSubscription: Subscription;
-    private titleBarText = 'Edit ToDo';
+    public titleBarText = 'Edit ToDo';
     public editToDoForm: FormGroup;
     private currentId: string;
     public currentDate: string;
