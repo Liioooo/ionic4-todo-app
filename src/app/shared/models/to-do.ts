@@ -8,5 +8,9 @@ export interface ToDo {
     deadline: {
         date: string;
         time: string;
+        notifications?: Array<{
+            timeBeforeEvent: number
+            noteficationId: number;
+        }>;
     };
 }

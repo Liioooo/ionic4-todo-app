@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Storage} from '@ionic/storage';
 import {ToDo} from '../models/to-do';
+import {NotifictaionsService} from './notifictaions.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class TodoService {
 
     private allToDos: ToDo[] = [];
 
-    constructor(private storage: Storage) {
+    constructor(private storage: Storage, private notifications: NotifictaionsService) {
         this.storage.get('toDos').then(data => {
             this.allToDos = data || [];
         });
@@ -43,6 +44,7 @@ export class TodoService {
         toDo.id = highest + 1;
         toDo.done = false;
         toDo.archive = false;
+        toDo = this.notifications.scheduleNotefications(toDo);
         this.allToDos.push(toDo);
         this.saveToStorage();
     }
@@ -50,7 +52,9 @@ export class TodoService {
     public updateToDo(toDo: ToDo) {
         for (let i = 0; i < this.allToDos.length; i++) {
             if (this.allToDos[i].id === toDo.id) {
-                this.allToDos[i] = toDo
+                this.notifications.unscheduleNotefications(this.allToDos[i]);
+                toDo = this.notifications.scheduleNotefications(toDo);
+                this.allToDos[i] = toDo;
                 break;
             }
         }
@@ -58,7 +62,9 @@ export class TodoService {
     }
 
     public moveToArchive(id: number) {
-        this.allToDos.filter(todo => Number(todo.id) === id)[0].archive = true;
+        const toDo = this.allToDos.filter(todo => Number(todo.id) === id)[0];
+        toDo.archive = true;
+        this.notifications.unscheduleNotefications(toDo);
         this.saveToStorage();
     }
 
@@ -78,7 +84,14 @@ export class TodoService {
     }
 
     public delete(id: number) {
-        this.allToDos = this.allToDos.filter(todo => Number(todo.id) !== Number(id));
+        this.allToDos = this.allToDos.filter(todo => {
+            if (Number(todo.id) !== Number(id)) {
+                return true;
+            } else {
+                this.notifications.unscheduleNotefications(todo);
+                return false;
+            }
+        });
         this.saveToStorage();
     }
 
