@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {LocalNotifications} from '@ionic-native/local-notifications';
+import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {ToDo} from '../models/to-do';
 
 @Injectable({
@@ -17,12 +17,9 @@ export class NotifictaionsService {
     }
 
     newToDo.deadline.notifications.forEach(item => {
-        const deadlineTime = new Date(newToDo.deadline.time);
-        const deadline = new Date(newToDo.deadline.date);
-        deadline.setHours(deadlineTime.getHours());
-        deadline.setMinutes(deadlineTime.getMinutes());
-        const timeToSend = new Date(deadline.getMilliseconds() - item.timeBeforeEvent);
-        item.noteficationId = Number(`${newToDo.id}${timeToSend.getMilliseconds()}`);
+        let timeToSend = new Date(newToDo.deadline.deadline - Number(item.timeBeforeEvent));
+        item.noteficationId = Number(`${newToDo.id}${timeToSend}`);
+        timeToSend = new Date(timeToSend);
         this.notifctaions.schedule({
             id: item.noteficationId,
             text: newToDo.title,

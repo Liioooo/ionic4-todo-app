@@ -16,9 +16,9 @@ import {IonicStorageModule} from '@ionic/storage';
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, SharedModule.forRoot(), IonicStorageModule.forRoot()],
   providers: [
-    StatusBar,
-    SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+      StatusBar,
+      SplashScreen,
+      { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })

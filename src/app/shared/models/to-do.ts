@@ -6,11 +6,10 @@ export interface ToDo {
     done?: boolean;
     archive?: boolean;
     deadline: {
-        date: string;
-        time: string;
+        deadline: string;
         notifications?: Array<{
             timeBeforeEvent: number
-            noteficationId: number;
+            notificationId: number;
         }>;
     };
 }

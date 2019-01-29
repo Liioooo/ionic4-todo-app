@@ -2,11 +2,15 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {TodoService} from './services/todo.service';
 import {NotifictaionsService} from './services/notifictaions.service';
+import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 
 @NgModule({
     declarations: [],
     imports: [
-        CommonModule,
+        CommonModule
+    ],
+    providers: [
+        LocalNotifications
     ]
 })
 export class SharedModule {

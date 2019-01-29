@@ -45,6 +45,7 @@ export class TodoService {
         toDo.done = false;
         toDo.archive = false;
         toDo = this.notifications.scheduleNotefications(toDo);
+        console.log(toDo);
         this.allToDos.push(toDo);
         this.saveToStorage();
     }

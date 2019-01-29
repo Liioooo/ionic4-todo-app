@@ -27,8 +27,8 @@ export class EditToDoPage implements OnInit {
             description: [''],
             priority: [''],
             showingDeadlineMenu: [''],
-            date: [''],
-            time: ['']
+            deadline: [''],
+            notificationsSelect: ['']
         });
     }
 
@@ -40,20 +40,17 @@ export class EditToDoPage implements OnInit {
                 this.editToDoForm.controls.priority.setValue(5);
                 this.editToDoForm.controls.title.setValue('');
                 this.editToDoForm.controls.description.setValue('');
-                this.editToDoForm.controls.date.setValue(this.currentDate);
-                this.editToDoForm.controls.time.setValue(this.currentDate);
+                this.editToDoForm.controls.deadline.setValue(this.currentDate);
             } else {
                 const toDo = this.toDoService.getToDo(params['id']);
                 this.editToDoForm.controls.priority.setValue(toDo.priority);
                 this.editToDoForm.controls.title.setValue(toDo.title);
                 this.editToDoForm.controls.description.setValue(toDo.description);
                 if (toDo.deadline) {
-                    this.editToDoForm.controls.date.setValue(toDo.deadline.date);
-                    this.editToDoForm.controls.time.setValue(toDo.deadline.time);
+                    this.editToDoForm.controls.deadline.setValue(toDo.deadline);
                     this.editToDoForm.controls.showingDeadlineMenu.setValue(true);
                 } else {
-                    this.editToDoForm.controls.date.setValue(this.currentDate);
-                    this.editToDoForm.controls.time.setValue(this.currentDate);
+                    this.editToDoForm.controls.deadline.setValue(this.currentDate);
                 }
             }
             this.currentId = params['id'];
@@ -71,11 +68,16 @@ export class EditToDoPage implements OnInit {
     saveToDo() {
         let deadline;
         if (this.showingDeadlineMenu) {
-            console.log('saving D');
             deadline = {
-                date: this.editToDoForm.controls.date.value,
-                time: this.editToDoForm.controls.time.value,
+                deadline: new Date(this.editToDoForm.controls.deadline.value).getMilliseconds(),
             };
+            const notes: [] = this.editToDoForm.controls.notificationsSelect.value;
+            if (notes) {
+                deadline.notifications = [];
+                notes.forEach(item => deadline.notifications.push({
+                    timeBeforeEvent: item
+                }));
+            }
         }
         const doTo: ToDo = {
             title: this.editToDoForm.controls.title.value,

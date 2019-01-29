@@ -34,12 +34,18 @@
       </ion-row>
       <div [style.display]="showingDeadlineMenu ? 'block' : 'none'">
         <ion-item>
-          <ion-label>Date</ion-label>
-          <ion-datetime displayFormat="DD/MM/YYYY" formControlName="date" max="2100"></ion-datetime>
+          <ion-label>Deadline</ion-label>
+          <ion-datetime displayFormat="DD/MM/YYYY HH:mm" formControlName="deadline" max="2100"></ion-datetime>
         </ion-item>
         <ion-item>
-          <ion-label>Time</ion-label>
-          <ion-datetime displayFormat="HH:mm" formControlName="time"></ion-datetime>
+          <ion-label>Notifications</ion-label>
+          <ion-select multiple="true" okText="Ok" cancelText="Cancel" formControlName="notificationsSelect">
+            <ion-select-option value="300000">5m before</ion-select-option>
+            <ion-select-option value="600000">10min before</ion-select-option>
+            <ion-select-option value="3600000">1h before</ion-select-option>
+            <ion-select-option value="14400000">4h before</ion-select-option>
+            <ion-select-option value="86400000">1day before</ion-select-option>
+          </ion-select>
         </ion-item>
       </div>
     </ion-item-group>
