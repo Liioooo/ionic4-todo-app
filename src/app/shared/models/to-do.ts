@@ -6,7 +6,7 @@ export interface ToDo {
     done?: boolean;
     archive?: boolean;
     deadline: {
-        deadline: string;
+        deadlineDate: string;
         notifications?: Array<{
             timeBeforeEvent: number
             notificationId: number;

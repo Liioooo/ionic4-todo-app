@@ -4,6 +4,7 @@ import {Subscription} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TodoService} from '../shared/services/todo.service';
 import {ToDo} from '../shared/models/to-do';
+import {TimeHelper} from '../shared/helpers/TimeHelper';
 
 @Component({
   selector: 'app-edit-to-do',
@@ -21,7 +22,7 @@ export class EditToDoPage implements OnInit {
     constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private toDoService: TodoService, private router: Router) { }
 
     ngOnInit() {
-        this.currentDate = new Date(Date.now()).toISOString();
+        this.currentDate = TimeHelper.getCurrentDateISO();
         this.editToDoForm = this.formBuilder.group({
             title: ['', Validators.required],
             description: [''],
@@ -47,7 +48,7 @@ export class EditToDoPage implements OnInit {
                 this.editToDoForm.controls.title.setValue(toDo.title);
                 this.editToDoForm.controls.description.setValue(toDo.description);
                 if (toDo.deadline) {
-                    this.editToDoForm.controls.deadline.setValue(toDo.deadline);
+                    this.editToDoForm.controls.deadline.setValue(toDo.deadline.deadlineDate);
                     this.editToDoForm.controls.showingDeadlineMenu.setValue(true);
                 } else {
                     this.editToDoForm.controls.deadline.setValue(this.currentDate);
@@ -69,14 +70,14 @@ export class EditToDoPage implements OnInit {
         let deadline;
         if (this.showingDeadlineMenu) {
             deadline = {
-                deadline: new Date(this.editToDoForm.controls.deadline.value).getMilliseconds(),
+                deadlineDate: new Date(this.editToDoForm.controls.deadline.value).toISOString(),
             };
-            const notes: [] = this.editToDoForm.controls.notificationsSelect.value;
-            if (notes) {
-                deadline.notifications = [];
-                notes.forEach(item => deadline.notifications.push({
-                    timeBeforeEvent: item
-                }));
+            if (this.editToDoForm.controls.notificationsSelect.value) {
+                deadline.notifications = this.editToDoForm.controls.notificationsSelect.value
+                    .map(item => Number(item))
+                    .map(item => {
+                        return {timeBeforeEvent: item};
+                    });
             }
         }
         const doTo: ToDo = {

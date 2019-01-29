@@ -44,7 +44,7 @@ export class TodoService {
         toDo.id = highest + 1;
         toDo.done = false;
         toDo.archive = false;
-        toDo = this.notifications.scheduleNotefications(toDo);
+        toDo = this.notifications.scheduleNotifications(toDo);
         console.log(toDo);
         this.allToDos.push(toDo);
         this.saveToStorage();
@@ -53,8 +53,8 @@ export class TodoService {
     public updateToDo(toDo: ToDo) {
         for (let i = 0; i < this.allToDos.length; i++) {
             if (this.allToDos[i].id === toDo.id) {
-                this.notifications.unscheduleNotefications(this.allToDos[i]);
-                toDo = this.notifications.scheduleNotefications(toDo);
+                this.notifications.unscheduleNotifications(this.allToDos[i]);
+                toDo = this.notifications.scheduleNotifications(toDo);
                 this.allToDos[i] = toDo;
                 break;
             }
@@ -65,7 +65,7 @@ export class TodoService {
     public moveToArchive(id: number) {
         const toDo = this.allToDos.filter(todo => Number(todo.id) === id)[0];
         toDo.archive = true;
-        this.notifications.unscheduleNotefications(toDo);
+        this.notifications.unscheduleNotifications(toDo);
         this.saveToStorage();
     }
 
@@ -89,7 +89,7 @@ export class TodoService {
             if (Number(todo.id) !== Number(id)) {
                 return true;
             } else {
-                this.notifications.unscheduleNotefications(todo);
+                this.notifications.unscheduleNotifications(todo);
                 return false;
             }
         });
