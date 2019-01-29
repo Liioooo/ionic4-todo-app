@@ -16,11 +16,14 @@ export class NotifictaionsService {
     }
 
     toDo.deadline.notifications.forEach(item => {
-        const timeToSend = TimeHelper.addTimeMillis(TimeHelper.getCurrentDate(), -item.timeBeforeEvent);
+        let timeToSend = TimeHelper.addTimeMillis(new Date(toDo.deadline.deadlineDate), -item.timeBeforeEvent);
+        timeToSend = TimeHelper.convertToUTC(timeToSend);
+        const dateDisplayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
         item.notificationId = Number(`${toDo.id}${timeToSend.getTime()}`);
         this.notifications.schedule({
             id: item.notificationId,
-            text: toDo.title,
+            title: toDo.title,
+            text: `Deadline: ${new Date(toDo.deadline.deadlineDate).toLocaleString('en', dateDisplayOptions)}`,
             sound: null,
             trigger: {at: timeToSend}
         });
@@ -29,6 +32,7 @@ export class NotifictaionsService {
   }
 
   unscheduleNotifications(toDo: ToDo) {
+      console.log(toDo);
     if (!toDo.deadline.notifications) {
         return;
     }

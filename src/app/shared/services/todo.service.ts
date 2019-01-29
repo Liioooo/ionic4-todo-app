@@ -75,12 +75,16 @@ export class TodoService {
     }
 
     public moveToDone(id: number) {
-        this.allToDos.filter(todo => Number(todo.id) === id)[0].done = true;
+        const toDo = this.allToDos.filter(todo => Number(todo.id) === id)[0];
+        toDo.done = true;
+        this.notifications.unscheduleNotifications(toDo);
         this.saveToStorage();
     }
 
     public moveToDoing(id: number) {
-        this.allToDos.filter(todo => Number(todo.id) === id)[0].done = false;
+        const toDo = this.allToDos.filter(todo => Number(todo.id) === id)[0];
+        toDo.done = false;
+        this.notifications.scheduleNotifications(toDo);
         this.saveToStorage();
     }
 

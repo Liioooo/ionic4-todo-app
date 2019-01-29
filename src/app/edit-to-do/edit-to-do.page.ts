@@ -50,6 +50,9 @@ export class EditToDoPage implements OnInit {
                 if (toDo.deadline) {
                     this.editToDoForm.controls.deadline.setValue(toDo.deadline.deadlineDate);
                     this.editToDoForm.controls.showingDeadlineMenu.setValue(true);
+                    if (toDo.deadline.notifications) {
+                        this.editToDoForm.controls.notificationsSelect.setValue(toDo.deadline.notifications.map(item => item.timeBeforeEvent + ''));
+                    }
                 } else {
                     this.editToDoForm.controls.deadline.setValue(this.currentDate);
                 }
