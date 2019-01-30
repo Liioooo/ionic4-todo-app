@@ -23,7 +23,7 @@ export class NotifictaionsService {
         this.notifications.schedule({
             id: item.notificationId,
             title: toDo.title,
-            text: `Deadline: ${new Date(toDo.deadline.deadlineDate).toLocaleString('en', dateDisplayOptions)}`,
+            text: `Deadline: ${TimeHelper.convertToUTC(new Date(toDo.deadline.deadlineDate)).toLocaleString('en', dateDisplayOptions)}`,
             sound: null,
             trigger: {at: timeToSend}
         });

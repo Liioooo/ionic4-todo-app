@@ -1,6 +1,6 @@
 {
   "name": "lio-to-do-app",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "author": "Liiioooo",
   "scripts": {
     "ng": "ng",
